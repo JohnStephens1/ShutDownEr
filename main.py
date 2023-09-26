@@ -8,7 +8,7 @@ import time
 # my old code, it hurts xd
 def get_time():
 	while True:
-		fancy_time = tk.simpledialog.askstring("ShutDownEr", "Please enter a time.")
+		fancy_time = tk.simpledialog.askstring("ShutDownEr", "Please enter a time:")
 
 		if fancy_time == "":
 			return str(0)
@@ -38,21 +38,13 @@ def fancy_time_to_seconds(time):
 	return seconds
 
 
-def fancy_time_to_formatted_time(time):
-	if len(time) <= 2:
-		return time + "s"
-	elif len(time) <= 4:
-		return time[:-2] + "m:" + time[-2:] + "s"
-	elif len(time) <= 6:
-		return time[:-4] + "h:" + str(time)[-4:-2] + "m:" + str(time)[-2:] + "s"
-
-
-# wth even is this
-def word_4_a_friend_of_course(sleep):
-	if sleep:
-		return "sleep"
-	else:
-		return "shutdown"
+def fancy_time_to_formatted_time(fancy_time):
+	if len(fancy_time) <= 2:
+		return fancy_time + "s"
+	elif len(fancy_time) <= 4:
+		return fancy_time[:-2] + "m" + fancy_time[-2:] + "s"
+	elif len(fancy_time) <= 6:
+		return fancy_time[:-4] + "h" + str(fancy_time)[-4:-2] + "m" + str(fancy_time)[-2:] + "s"
 
 
 def run_command(sleep, seconds):
@@ -70,13 +62,14 @@ def run_command(sleep, seconds):
 
 def main():
 	tk.Tk().withdraw()  # what
-	time = get_time()
-	seconds = fancy_time_to_seconds(time)
-	formatted_time = fancy_time_to_formatted_time(time)
+
+	fancy_time = get_time()
+	seconds = fancy_time_to_seconds(fancy_time)
+	formatted_time = fancy_time_to_formatted_time(fancy_time)
+
 	sleep = tk.messagebox.askyesno("ShutDownEr", "pls chos yes 4 slep & no 4 shutzown pls im lazy sorrrieee D:")
-	run = tk.messagebox.askyesno("ShutDownEr", "Confirm {mode} in {seconds} aka {pretty_time}.".format(
-		mode=word_4_a_friend_of_course(sleep), seconds=str(seconds) + " seconds", pretty_time=formatted_time))
-	if run:
+
+	if tk.messagebox.askyesno("ShutDownEr", f"Confirm {'sleep' if sleep else 'shutdown'} in {formatted_time} aka {seconds} seconds."):
 		run_command(sleep, seconds)
 	else:
 		tk.messagebox.showinfo("ShutDownEr", "GREATFUCKINGJOBMANWELLFUCKINGDOWNUGH")
