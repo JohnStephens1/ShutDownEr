@@ -46,11 +46,11 @@ def fancy_time_to_seconds(fancy_time):
 
 def fancy_time_to_formatted_time(fancy_time):
 	if len(fancy_time) <= 2:
-		return fancy_time + "s"
+		return f"{fancy_time}'s'"
 	elif len(fancy_time) <= 4:
-		return fancy_time[:-2] + "m" + fancy_time[-2:] + "s"
+		return f"{fancy_time[:-2]}'m'{fancy_time[-2:]}'s'"
 	elif len(fancy_time) <= 6:
-		return fancy_time[:-4] + "h" + str(fancy_time)[-4:-2] + "m" + str(fancy_time)[-2:] + "s"
+		return f"{fancy_time[:-4]}'h'{fancy_time[-4:-2]}'m'{fancy_time[-2:]}'s'"
 
 
 def initialize_shutdown(seconds, sleep):
@@ -71,7 +71,8 @@ def main():
 	sleep = tk.messagebox.askyesno("ShutDownEr", "pls chos yes 4 slep & no 4 shutzown pls im lazy sorrrieee D:")
 
 	if tk.messagebox.askyesno("ShutDownEr", f"Confirm {'sleep' if sleep else 'shutdown'} in {formatted_time} aka {seconds} seconds."):
-		initialize_shutdown(seconds, sleep)
+		# initialize_shutdown(seconds, sleep)
+		print("not shutting down :)")
 	else:
 		tk.messagebox.showinfo("ShutDownEr", "GREATFUCKINGJOBMANWELLFUCKINGDOWNUGH")
 
