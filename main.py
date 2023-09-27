@@ -5,35 +5,34 @@ import os
 import time
 
 
-# my old code, it hurts xd
-def get_time():
+def get_fancy_time():
 	while True:
 		fancy_time = tk.simpledialog.askstring("ShutDownEr", "Please enter a time:")
 
 		if fancy_time == "":
 			return str(0)
-		elif 1000000 > int(fancy_time) >= 0 or fancy_time == "":
+		elif 1000000 > int(fancy_time) >= 0:
 			return fancy_time
 		else:
 			tk.messagebox.showinfo("ShutDownEr", "Now bruv u didn't get how dis works now didja bruv, eh?.")
 
 
-def fancy_time_to_seconds(time):
+def fancy_time_to_seconds(fancy_time):
 	seconds = 0
 
-	for i in range(1, len(time) + 1):
+	for i in range(1, len(fancy_time) + 1):
 		if i == 1:
-			seconds += int(time[-i])
+			seconds += int(fancy_time[-i])
 		elif i == 2:
-			seconds += int(time[-i]) * 10
+			seconds += int(fancy_time[-i]) * 10
 		elif i == 3:
-			seconds += int(time[-i]) * 60
+			seconds += int(fancy_time[-i]) * 60
 		elif i == 4:
-			seconds += int(time[-i]) * 60 * 10
+			seconds += int(fancy_time[-i]) * 60 * 10
 		elif i == 5:
-			seconds += int(time[-i]) * 60 * 60
+			seconds += int(fancy_time[-i]) * 60 * 60
 		elif i == 6:
-			seconds += int(time[-i]) * 60 * 60 * 10
+			seconds += int(fancy_time[-i]) * 60 * 60 * 10
 
 	return seconds
 
@@ -47,30 +46,25 @@ def fancy_time_to_formatted_time(fancy_time):
 		return fancy_time[:-4] + "h" + str(fancy_time)[-4:-2] + "m" + str(fancy_time)[-2:] + "s"
 
 
-def run_command(sleep, seconds):
+def initialize_shutdown(seconds, sleep):
 	time.sleep(seconds)
+
 	if sleep:
 		os.system("shutdown -h")
 	else:
 		os.system("shutdown -s -t 0")
-	# if sleep:
-	# 	time.sleep(seconds)
-	# 	os.system("shutdown -h")
-	# else:
-	# 	os.system("shutdown -s -t {} -c ''".format(seconds))
+		# os.system(f"shutdown -s -t {seconds} -c ''")
 
 
 def main():
-	tk.Tk().withdraw()  # what
-
-	fancy_time = get_time()
+	fancy_time = get_fancy_time()
 	seconds = fancy_time_to_seconds(fancy_time)
 	formatted_time = fancy_time_to_formatted_time(fancy_time)
 
 	sleep = tk.messagebox.askyesno("ShutDownEr", "pls chos yes 4 slep & no 4 shutzown pls im lazy sorrrieee D:")
 
 	if tk.messagebox.askyesno("ShutDownEr", f"Confirm {'sleep' if sleep else 'shutdown'} in {formatted_time} aka {seconds} seconds."):
-		run_command(sleep, seconds)
+		initialize_shutdown(seconds, sleep)
 	else:
 		tk.messagebox.showinfo("ShutDownEr", "GREATFUCKINGJOBMANWELLFUCKINGDOWNUGH")
 
