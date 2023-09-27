@@ -5,6 +5,13 @@ import os
 import time
 
 
+# TODO
+#  add window post init_shutdown(), closing results in aborted shutdown
+#  window starts minimized
+#  make window display remaining time
+#  add warning for over x seconds once reaching y creates warning 'shutting down in y seconds'
+
+
 def get_fancy_time():
 	while True:
 		fancy_time = tk.simpledialog.askstring("ShutDownEr", "Please enter a time:")
