@@ -97,7 +97,7 @@ def main():
 	sleep = tk.messagebox.askyesno("ShutDownEr", "pls chos yes 4 slep & no 4 shutzown pls im lazy sorrrieee D:")
 
 	if tk.messagebox.askyesno("ShutDownEr", f"Confirm {'sleep' if sleep else 'shutdown'} in {time_string} aka {seconds} seconds."):
-		# initialize_shutdown(seconds, sleep)
+		initialize_shutdown(seconds, sleep)
 		print("not shutting down :)")
 	else:
 		tk.messagebox.showinfo("ShutDownEr", "GREATFUCKINGJOBMANWELLFUCKINGDOWNUGH")
