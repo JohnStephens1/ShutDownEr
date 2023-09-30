@@ -1,5 +1,9 @@
 .idea/
 venv
 
+build
+*.spec
+
+get-exe.bat
 ShutDownEr.bat
 TODO.txt
