@@ -9,4 +9,6 @@ utils/__pycache__
 
 get-exe.bat
 ShutDownEr.bat
+run_unittest.bat
+
 TODO.txt
