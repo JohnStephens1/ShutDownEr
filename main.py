@@ -91,17 +91,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-
-# tests
-def run_tests():
-	result_fancy_time_to_seconds = [fancy_time_to_seconds(x) for x in [0, 1, 5, 10, 60, 90, 130, 360, 13000]]
-	assert result_fancy_time_to_seconds == [0, 1, 5, 10, 60, 90, 90, 240, 5400], \
-		result_fancy_time_to_seconds
-
-	result_seconds_to_compact_time_string = [seconds_to_time_string(x) for x in [0, 5, 60, 90, 3600, 3600 * 49]]
-	assert result_seconds_to_compact_time_string == ['0s', '5s', '1m', '1m30s', '1h', '2d1h'], \
-		result_seconds_to_compact_time_string
-
-
-# run_tests()
