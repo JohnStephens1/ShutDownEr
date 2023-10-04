@@ -5,6 +5,8 @@ build
 dist
 *.spec
 
+utils/__pycache__
+
 get-exe.bat
 ShutDownEr.bat
 TODO.txt
