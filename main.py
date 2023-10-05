@@ -1,16 +1,26 @@
 import os
 import time
-from sys import exit
+import sys
+
+from pathlib import Path
+from functools import partial
+
+import threading
 
 import tkinter as tk
 from tkinter import simpledialog
 from tkinter import messagebox
 
+from utils.fancy_time_formatting import *
+from utils.dark_title_bar import dark_title_bar
+
 # TODO
-#  add window post init_shutdown(), closing results in aborted shutdown
-#  window starts minimized
-#  make window display remaining time
-#  add warning for over x seconds once reaching y creates warning 'shutting down in y seconds'
+#  window starts minimized?
+#  add warning for over x seconds once reaching y creates warning 'shutting down in y seconds'?
+
+
+APPLICATION_PATH = Path(os.path.dirname(__file__) if getattr(sys, 'frozen', True) else os.path.dirname(sys.executable))
+ICON_PATH = APPLICATION_PATH/'resources/tree.ico'
 
 
 def get_fancy_time():
@@ -19,7 +29,7 @@ def get_fancy_time():
 			fancy_time = tk.simpledialog.askstring("ShutDownEr", "Please enter a time:")
 
 			if fancy_time is None:
-				exit()
+				sys.exit()
 
 			fancy_time = fancy_time.replace(" ", "")
 
@@ -33,40 +43,7 @@ def get_fancy_time():
 			tk.messagebox.showinfo("ShutDownEr", "Improper formatting.\n\nPlease enter up to six digits.")
 
 
-def fancy_time_to_seconds(fancy_time):
-	total_seconds = 0
-
-	for pos, digit in enumerate(reversed(f"{fancy_time}")):
-		total_seconds += int(digit) * 6 ** (pos // 2) * 10 ** ((pos + 1) // 2)
-
-	return total_seconds
-
-
-def split_up_seconds(seconds):
-	total_minutes, seconds = divmod(seconds, 60)
-	total_hours, minutes = divmod(total_minutes, 60)
-	days, hours = divmod(total_hours, 24)
-
-	return days, hours, minutes, seconds
-
-
-def seconds_to_time_string(seconds):
-	days, hours, minutes, seconds = split_up_seconds(seconds)
-
-	time_string = ""
-	if days:
-		time_string = f"{days}d"
-	if hours:
-		time_string += f"{hours}h"
-	if minutes:
-		time_string += f"{minutes}m"
-	if seconds or not time_string:
-		time_string += f"{seconds}s"
-
-	return time_string
-
-
-def initialize_shutdown(seconds, sleep):
+def shutdown(seconds, sleep):
 	time.sleep(seconds)
 
 	if sleep:
@@ -74,6 +51,60 @@ def initialize_shutdown(seconds, sleep):
 	else:
 		os.system("shutdown -s -t 0")
 		# os.system(f"shutdown -s -t {seconds} -c ''")
+
+
+def initialize_shutdown(seconds, sleep):
+	threading.Thread(target=shutdown, args=(seconds, sleep), daemon=True).start()
+
+	open_final_window(seconds)
+
+
+def open_final_window(seconds):
+	# man do I hate tkinter ;-;
+	window = tk.Tk()
+
+	window.title('ShutDownEr')
+
+	window.iconbitmap(str(ICON_PATH))
+
+	# window.attributes("-topmost", True)
+	# window.lift()
+	# window.focus_force()
+	window.attributes('-topmost', True)
+	window.attributes('-topmost', False)
+	window.lift()
+	window.focus_force()
+
+	window.bind('<Escape>', lambda e: window.destroy())
+
+	label = tk.Label(window, bg='black', fg='white', text='hi :3', font=10)
+	label.pack()
+
+	window.title(f'{seconds_to_compact_time_string(seconds)} - Timerrhymer')
+	window.after(1000, partial(update_timer, window, seconds))
+
+	window.config(bg='black')
+	dark_title_bar(window)
+	window.withdraw()
+	window.deiconify()
+
+	window.geometry("400x150-0+5")
+
+	window.mainloop()
+
+
+def update_timer(window, seconds):
+	if seconds > 0:
+		seconds -= 1
+		time_string = seconds_to_time_string(seconds)
+
+		window.title(f'{time_string} - ShutDownEr')
+		window.update()
+
+		window.after(1000, partial(update_timer, window, seconds))
+	else:
+		# pass? race condition (with a full second buffer tho)
+		sys.exit()
 
 
 def main():
