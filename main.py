@@ -16,7 +16,6 @@ from utils.dark_title_bar import dark_title_bar
 
 # TODO
 #  window starts minimized?
-#  add warning for over x seconds once reaching y creates warning 'shutting down in y seconds'?
 
 
 APPLICATION_PATH = Path(os.path.dirname(__file__) if getattr(sys, 'frozen', True) else os.path.dirname(sys.executable))
@@ -94,6 +93,10 @@ def open_final_window(seconds):
 
 
 def update_timer(window, seconds):
+	if seconds == 60:
+		window.attributes('-topmost', True)
+		window.attributes('-topmost', False)
+
 	if seconds > 0:
 		seconds -= 1
 		time_string = seconds_to_time_string(seconds)
