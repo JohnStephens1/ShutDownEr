@@ -14,9 +14,6 @@ from tkinter import messagebox
 from utils.fancy_time_formatting import *
 from utils.dark_title_bar import dark_title_bar
 
-# TODO
-#  window starts minimized?
-
 
 APPLICATION_PATH = Path(os.path.dirname(__file__) if getattr(sys, 'frozen', True) else os.path.dirname(sys.executable))
 ICON_PATH = APPLICATION_PATH/'resources/tree.ico'
