@@ -56,28 +56,20 @@ def initialize_shutdown(seconds, sleep):
 
 
 def open_final_window(seconds):
-	# man do I hate tkinter ;-;
 	window = tk.Tk()
-
-	window.title('ShutDownEr')
 
 	window.iconbitmap(str(ICON_PATH))
 
-	# window.attributes("-topmost", True)
-	# window.lift()
-	# window.focus_force()
-	window.attributes('-topmost', True)
-	window.attributes('-topmost', False)
-	window.lift()
-	window.focus_force()
-
 	window.bind('<Escape>', lambda e: window.destroy())
 
-	label = tk.Label(window, bg='black', fg='white', text='hi :3', font=10)
+	text = tk.StringVar()
+	text.set('hi :3')
+
+	label = tk.Label(window, bg='black', fg='white', textvariable=text, font=10)
 	label.pack()
 
-	window.title(f'{seconds_to_compact_time_string(seconds)} - Timerrhymer')
-	window.after(1000, partial(update_timer, window, seconds))
+	window.title(f'{seconds_to_time_string(seconds)} - ShutDownEr')
+	window.after(1000, partial(update_timer, window, seconds, text))
 
 	window.config(bg='black')
 	dark_title_bar(window)
@@ -89,10 +81,14 @@ def open_final_window(seconds):
 	window.mainloop()
 
 
-def update_timer(window, seconds):
-	if seconds == 60:
+def update_timer(window, seconds, text):
+	if seconds == 60 or seconds == 1:
 		window.attributes('-topmost', True)
 		window.attributes('-topmost', False)
+
+		if seconds == 1:
+			text.set('bye :3')
+			window.update_idletasks()
 
 	if seconds > 0:
 		seconds -= 1
@@ -101,10 +97,9 @@ def update_timer(window, seconds):
 		window.title(f'{time_string} - ShutDownEr')
 		window.update()
 
-		window.after(1000, partial(update_timer, window, seconds))
+		window.after(1000, partial(update_timer, window, seconds, text))
 	else:
-		# pass? race condition (with a full second buffer tho)
-		sys.exit()
+		window.destroy()
 
 
 def main():
