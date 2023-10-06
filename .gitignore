@@ -1,11 +1,12 @@
 .idea/
+utils/__pycache__
 venv
 
 build
 dist
 *.spec
 
-utils/__pycache__
+ShutDownEr.exe
 
 get-exe.bat
 ShutDownEr.bat
