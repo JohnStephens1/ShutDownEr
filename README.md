@@ -1,28 +1,32 @@
 ## Table of Contents
-1. [Let's Get Right Into It](#lets-get-right-into-it)
-   1. [Let's Go Through An Example](#lets-go-through-an-example)
-   2. [The Beauty...](#the-beauty)
-   3. [Uses](#uses)
-2. [How to Install](#how-to-install)
-3. [More Tools From Me](#more-tools-from-me)
-4. [Support](#support)
+1. [Quick Overview](#quick-overview)
+2. [Let's Go Through An Example](#lets-go-through-an-example)
+   1. [The Time Formatting](#the-time-formatting)
+   2. [Hibernate or Shut Down](#hibernate-or-shut-down)
+   3. [The Nice Thing...](#the-nice-thing)
+3. [How to Install](#how-to-install)
+4. [More Tools From Me](#more-tools-from-me)
+5. [Support](#support)
+
 
 ## Quick Overview
 
 What is _ShutDownEr_?
 
-- Enter a time: with intuitive formatting
-- Confirm mode: default is hibernate, the alternative is shutdown
-- Confirm process: e.g. 'confirm sleep in 69h 4m 20s'
-- Enjoy the final window: subtle in design, depicting the remaining time until the shutdown. Close this to abort shutdown.
+- **Enter a time** in an intuitive format
+- **Confirm mode.** The default is hibernate, the alternative is shutdown
+- **Confirm process.** E.g. 'confirm sleep in 69h 4m 20s'
+- **Enjoy the final window.** Subtle in design, depicting the remaining time until shutdown. Simply close this to abort operation.
 
-More details, about the time formatting etc. below :)
+More details about the time formatting etc. below :)
 
-## Let's Get Right To It
+## Let's Go Through An Example
 
-It's quite straight forward.
+Upon starting _ShutDownEr_ we're greeted with this window.
 
-![Greeting](readme-images/greeting.PNG "Unos titleos?")
+![greeting](readme-images/greeting.PNG)
+
+### The Time Formatting
 
 What makes _ShutDownEr_ unique is the way the time is formatted.
 
@@ -55,19 +59,14 @@ You can also add spaces wherever you like, if that's what you're into.
 | 1 30 00                       | 1h 30m 00s    |
 | &nbsp; 13 &ensp; 0 &ensp; 0 0 | 1h 30m 00s    |
 
-## Let's Go Through An Example
-Upon starting _ShutDownEr_, we're greeted with this window.
-
-![greeting](readme-images/greeting.PNG)
-
-Let's say we want to initiate a shutdown in 12h 34m 56s. So we enter:
+Back to our example. Let's say we want to initiate a shutdown in 12h 34m 56s. So we enter:
 
 ![greeting-filled-out](readme-images/greeting-filled-out.PNG)
 
 and hit _enter_ or click _OK_.
 <br>
 
-### Hibernate or shut down
+### Hibernate or Shut Down
 The two primary modes _ShutDownEr_ operates in are shutting down normally or hibernating, with the latter being the default.
 In case you didn't know, hibernating is like sleeping, saving the windows and processes running, but as opposed to sleeping, hibernating
 
@@ -78,11 +77,11 @@ In case you didn't know, hibernating is like sleeping, saving the windows and pr
 Here's a table for a swift overview.
 
 
-| type      | saves status | fast boot | low energy consumption | that on kid with untreated ADHD |
-|-----------|--------------|-----------|------------------------|---------------------------------|
-| shut down | &#9744;      | &#9744;   | &#9745;                | &#9744;                         |
-| hibernate | &#9745;      | &#9744;   | &#9745;                | &#9744;                         |
-| sleep     | &#9745;      | &#9745;   | &#9744;                | &#9745;                         |
+| type      | saves status | fast boot | low energy consumption | that one kid with untreated ADHD |
+|-----------|--------------|-----------|------------------------|----------------------------------|
+| shut down | &#9744;      | &#9744;   | &#9745;                | &#9744;                          |
+| hibernate | &#9745;      | &#9744;   | &#9745;                | &#9744;                          |
+| sleep     | &#9745;      | &#9745;   | &#9744;                | &#9745;                          |
 
 This matter is clearly depicted in the following window:
 
@@ -125,9 +124,7 @@ The remaining time is visible at any point as well, and cancellation requires no
 
 Simply download `ShutDownEr.exe` from the _Releases_ section, and you're good to go! No installation required, not even Python.
 
-The first time running the `.exe` file you might get a warning saying that the app isn't recognized, but after clicking 'More Info' and 'Run anyway' the warning shouldn't pop up anymore.
-
-The only way to get rid of the warning would require me to buy a yearly subscription costing hundreds of euros, and since this is free, open-source software, that isn't in the cards for now.
+The first time running the `.exe` file you might get a warning saying that the app isn't recognized since I haven't bought a license, but after clicking 'More Info' and 'Run anyway' the warning shouldn't pop up anymore.
 
 Alternatively, if you prefer using Python to run the program instead, clone the repository and simply run main.py, no additional packages required.
 
@@ -141,7 +138,7 @@ If you enjoyed _ShutDownEr_, feel free to check out my other quality-of-life too
 
 ## Support
 
-If you found any of them useful, sharing my work with people who might profit from them as well would be highly appreciated.
+If you found any of them useful, sharing my tools with people who might profit them as well would be highly appreciated.
 
 Alternatively, any and every donation would mean a lot and help me keep making more tools like them.
 
