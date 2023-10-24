@@ -1,9 +1,9 @@
 .idea/
 utils/__pycache__
-venv
+venv/
 
-build
-dist
+build/
+dist/
 *.spec
 
 ShutDownEr.exe
