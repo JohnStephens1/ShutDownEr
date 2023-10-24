@@ -89,7 +89,7 @@ This matter is clearly depicted in the following window:
 
 *just hit enter ok*
 
-### Moving on xd
+### Moving On xd
 
 Then, _ShutDownEr_ informs us of the resulting time of the string we entered and asks us for confirmation.
 
@@ -111,7 +111,7 @@ To abort the shutdown, simply close the window, _ShutDownEr_ will then shut itse
 You can also quit _ShutDownEr_ by hitting the _Escape_ key.
 
 
-### The nice thing...
+### The Nice Thing...
 
 ...is how simple it is.
 
