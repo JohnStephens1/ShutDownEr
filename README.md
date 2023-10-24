@@ -100,11 +100,12 @@ In this example you can clearly see why this time format is substantially simple
 
 Since the formatted time is correct, let's hit _enter_ again.
 
-![final-window](readme-images/final-window.PNG)
+![final-window](readme-images/final-window-updated.PNG)
 
-And there we go! Shutdown is initiated, with the remaining time being visible in the title of the window. 
-
+And there we go! Shutdown is initiated, with the remaining time being visible in the title of the window.
 Hovering over the windows icon in the taskbar shows us the remaining time as well.
+
+There is also button to add five minutes to the timer, as well as a button to shut down/hibernate immediately.
 
 To abort the shutdown, simply close the window, _ShutDownEr_ will then shut itself down instead *muhahaha*.
 
@@ -113,11 +114,11 @@ You can also quit _ShutDownEr_ by hitting the _Escape_ key.
 
 ### The Nice Thing...
 
-...is how simple it is.
+...is how simple and flexible it is.
 
-You can enter your desired time in a heartbeat because of the intuitive formatting, hit enter three times, and there you go.
+You can enter your desired time in a heartbeat because of the intuitive formatting, hit enter three times, and there ya go.
 
-The remaining time is visible at any point as well, and cancellation requires no more than a single click.
+The remaining time is visible at any point, can be easily increased, and both cancellation and shutdown require but a single click.
 
 
 ## How to Install
