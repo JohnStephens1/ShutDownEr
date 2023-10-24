@@ -1,11 +1,8 @@
 import os
-import time
 import sys
 
 from pathlib import Path
 from functools import partial
-
-import threading
 
 import tkinter as tk
 from tkinter import simpledialog
@@ -17,16 +14,6 @@ from utils.dark_title_bar import dark_title_bar
 
 APPLICATION_PATH = Path(os.path.dirname(__file__) if getattr(sys, 'frozen', True) else os.path.dirname(sys.executable))
 ICON_PATH = APPLICATION_PATH/'resources/tree.ico'
-
-
-# TODO
-#  - add +5 minute button '+5 min'
-#  - add shutdown now button 'shutdown now'
-
-#  button properties:
-#  - white outline
-#  - black inside
-#  - white text
 
 
 def get_fancy_time():
@@ -49,9 +36,7 @@ def get_fancy_time():
 			tk.messagebox.showinfo("ShutDownEr", "Improper formatting.\n\nPlease enter up to six digits.")
 
 
-def shutdown(seconds, sleep):
-	time.sleep(seconds)
-
+def shutdown(sleep):
 	if sleep:
 		os.system("shutdown -h")
 	else:
@@ -59,39 +44,69 @@ def shutdown(seconds, sleep):
 		# os.system(f"shutdown -s -t {seconds} -c ''")
 
 
-def initialize_shutdown(seconds, sleep):
-	threading.Thread(target=shutdown, args=(seconds, sleep), daemon=True).start()
-
-	open_final_window(seconds)
+def add_five_minutes_to_timer(seconds_array):
+	seconds_array[0] += 300
 
 
-def open_final_window(seconds):
+def set_timer_to_zero(seconds_array):
+	seconds_array[0] = 0
+
+
+def open_final_window(seconds, sleep):
+	window_width = 400
+	window_height = 150
+	button_width = 14
+
+	seconds_array = [seconds]
+
 	window = tk.Tk()
 
-	window.iconbitmap(str(ICON_PATH))
+	button_settings = {
+		'master': window,
+		'activebackground': 'grey',
+		'fg': 'white',
+		'bg': 'black',
+		'font': 10,
+		'width': button_width
+	}
+
+	window.iconbitmap(ICON_PATH)
 
 	window.bind('<Escape>', lambda e: window.destroy())
 
 	text = tk.StringVar()
 	text.set('hi :3')
 
-	label = tk.Label(window, bg='black', fg='white', textvariable=text, font=10)
-	label.pack()
+	label = tk.Label(
+		master=window,
+		textvariable=text,
+		bg='black',
+		fg='white',
+		font=10)
+	label.pack(pady=(10, 0))
+
+	butt1 = tk.Button(text='+5 min', command=lambda: add_five_minutes_to_timer(seconds_array), **button_settings)
+	butt2 = tk.Button(text='shutdown now', command=lambda: set_timer_to_zero(seconds_array), **button_settings)
+
+	butt1.pack(side=tk.LEFT, padx=(30, 0), pady=(0, 20))
+	butt2.pack(side=tk.RIGHT, padx=(0, 30), pady=(0, 20))
 
 	window.title(f'{seconds_to_time_string(seconds)} - ShutDownEr')
-	window.after(1000, partial(update_timer, window, seconds, text))
+	window.after(1000, partial(update_timer, window, seconds_array, text, sleep))
 
 	window.config(bg='black')
 	dark_title_bar(window)
 	window.withdraw()
 	window.deiconify()
 
-	window.geometry("400x150-0+5")
+	window.geometry(f"{window_width}x{window_height}-0+5")
 
 	window.mainloop()
 
 
-def update_timer(window, seconds, text):
+def update_timer(window, seconds_array, text, sleep):
+	seconds = seconds_array[0]
+
 	if seconds == 60 or seconds == 1:
 		window.attributes('-topmost', True)
 		window.attributes('-topmost', False)
@@ -101,14 +116,15 @@ def update_timer(window, seconds, text):
 			window.update_idletasks()
 
 	if seconds > 0:
-		seconds -= 1
-		time_string = seconds_to_time_string(seconds)
+		seconds_array[0] -= 1
+		time_string = seconds_to_time_string(seconds_array[0])
 
 		window.title(f'{time_string} - ShutDownEr')
 		window.update()
 
-		window.after(1000, partial(update_timer, window, seconds, text))
+		window.after(1000, partial(update_timer, window, seconds_array, text, sleep))
 	else:
+		shutdown(sleep)
 		window.destroy()
 
 
@@ -120,7 +136,7 @@ def main():
 	sleep = tk.messagebox.askyesno("ShutDownEr", "pls chos yes 4 slep & no 4 shutzown pls im lazy sorrrieee D:")
 
 	if tk.messagebox.askyesno("ShutDownEr", f"Confirm {'sleep' if sleep else 'shutdown'} in {time_string} aka {seconds} seconds."):
-		initialize_shutdown(seconds, sleep)
+		open_final_window(seconds, sleep)
 	else:
 		tk.messagebox.showinfo("ShutDownEr", "GREATFUCKINGJOBMANWELLFUCKINGDOWNUGH")
 
