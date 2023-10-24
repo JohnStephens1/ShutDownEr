@@ -19,6 +19,16 @@ APPLICATION_PATH = Path(os.path.dirname(__file__) if getattr(sys, 'frozen', True
 ICON_PATH = APPLICATION_PATH/'resources/tree.ico'
 
 
+# TODO
+#  - add +5 minute button '+5 min'
+#  - add shutdown now button 'shutdown now'
+
+#  button properties:
+#  - white outline
+#  - black inside
+#  - white text
+
+
 def get_fancy_time():
 	while True:
 		try:
