@@ -86,7 +86,7 @@ def open_final_window(seconds, sleep):
 	label.pack(pady=(10, 0))
 
 	butt1 = tk.Button(text='+5 min', command=lambda: add_five_minutes_to_timer(seconds_array), **button_settings)
-	butt2 = tk.Button(text='shutdown now', command=lambda: set_timer_to_zero(seconds_array), **button_settings)
+	butt2 = tk.Button(text='shut down now', command=lambda: set_timer_to_zero(seconds_array), **button_settings)
 
 	butt1.pack(side=tk.LEFT, padx=(30, 0), pady=(0, 20))
 	butt2.pack(side=tk.RIGHT, padx=(0, 30), pady=(0, 20))
